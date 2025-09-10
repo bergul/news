@@ -20,8 +20,8 @@ def load_sources(yaml_path: str) -> List[Source]:
         if not s.get("rss_url") and not s.get("url"):
             continue
         if not s.get("enabled", True):
-            # assume enabled by default
-            pass
+            # Skip sources explicitly marked as disabled
+            continue
         t = (s.get("type") or "rss").lower()
         name = s.get("name", "Unnamed")
         lang = s.get("language", "")
