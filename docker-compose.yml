@@ -20,10 +20,6 @@ services:
     depends_on:
       - db
 
-volumes:
-  pgdata:
-
-
   api:
     build: .
     environment:
@@ -35,3 +31,6 @@ volumes:
     ports:
       - "8000:8000"
     command: ["uvicorn", "app.api:app", "--host", "0.0.0.0", "--port", "8000"]
+
+volumes:
+  pgdata:

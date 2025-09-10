@@ -2,7 +2,6 @@ from __future__ import annotations
 import json
 import time
 from typing import Iterable, Dict, Any, List
-import httpx
 
 from .config import settings
 from .logging_util import get_logger
@@ -19,7 +18,6 @@ def notify_news(items: Iterable[Dict[str, Any]]):
     endpoints = _parse_endpoints()
     if not endpoints:
         return
-    payload = {"event": "news.created", "count": len(list(items))}
     # Send one-by-one to preserve memory, and include record content
     for it in items:
         body = {"event": "news.created", "record": it}
@@ -27,6 +25,13 @@ def notify_news(items: Iterable[Dict[str, Any]]):
             _post_with_retry(url, body)
 
 def _post_with_retry(url: str, body: Dict[str, Any], retries: int = 3, backoff: float = 1.0):
+    # Import httpx lazily so that it is optional at runtime
+    try:
+        import httpx  # type: ignore
+    except Exception:
+        log.warning("httpx not installed; skipping webhook POST to %s", url)
+        return
+
     last_err = None
     for i in range(retries):
         try:

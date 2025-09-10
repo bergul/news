@@ -1,14 +1,17 @@
 from __future__ import annotations
-import feedparser
 from datetime import datetime, timezone
 from typing import Iterable, List, Dict, Any
-from bs4 import BeautifulSoup
 
 from .base import Source, Item
 from ..translation import Translator
 
 def _clean_html(summary: str) -> str:
     try:
+        # Lazy import BeautifulSoup
+        try:
+            from bs4 import BeautifulSoup  # type: ignore
+        except Exception:
+            return summary or ""
         return BeautifulSoup(summary or "", "html.parser").get_text(" ", strip=True)
     except Exception:
         return summary or ""
@@ -20,9 +23,15 @@ class RSSSource(Source):
         self.translator = Translator(translator_cfg or {}) if translate_to_tr else None
 
     def fetch(self) -> Iterable[Item]:
+        # Lazy import feedparser
+        try:
+            import feedparser  # type: ignore
+        except Exception:
+            # If feedparser is not available, return empty list so the app continues running
+            return []
         feed = feedparser.parse(self.url)
         items: List[Item] = []
-        for e in feed.entries:
+        for e in getattr(feed, "entries", []) or []:
             # published_parsed may be missing -> fallback to now()
             if hasattr(e, "published_parsed") and e.published_parsed:
                 dt = datetime(*e.published_parsed[:6], tzinfo=timezone.utc)
@@ -51,7 +60,15 @@ class RSSSource(Source):
             else:
                 raw = {}
 
-            base_raw = dict(e=e, feed=dict(title=feed.feed.get("title", ""), link=feed.feed.get("link", "")))
+            base_raw = dict(
+                feed=dict(title=getattr(getattr(feed, "feed", {}), "get", lambda *_: "")("title", ""),
+                          link=getattr(getattr(feed, "feed", {}), "get", lambda *_: "")("link", ""))
+            )
+            # add entry raw if available
+            try:
+                base_raw["e"] = e
+            except Exception:
+                pass
             raw.update(base_raw)
 
             items.append(Item(

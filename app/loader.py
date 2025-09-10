@@ -1,10 +1,13 @@
 from __future__ import annotations
-import yaml
 from typing import List, Tuple, Dict, Any
 from .sources.rss_source import RSSSource
 from .sources.base import Source
 
 def load_sources(yaml_path: str) -> List[Source]:
+    try:
+        import yaml  # type: ignore
+    except Exception:
+        raise RuntimeError("PyYAML is not installed. Please run: pip install PyYAML or pip install -r requirements.txt")
     with open(yaml_path, "r", encoding="utf-8") as f:
         cfg = yaml.safe_load(f) or {}
     # Support both top-level list (legacy) and dict with 'sources' key (new style)

@@ -1,5 +1,4 @@
 from __future__ import annotations
-import httpx
 from typing import Optional, Dict
 
 class Translator:
@@ -33,6 +32,11 @@ class Translator:
 
     def _libretranslate(self, text: str, source_lang: str, target_lang: str) -> Optional[str]:
         try:
+            # Lazy import
+            import httpx  # type: ignore
+        except Exception:
+            return None
+        try:
             lt = self.cfg.get("libretranslate") or {}
             url = lt.get("endpoint")
             if not url:
@@ -48,6 +52,11 @@ class Translator:
         return None
 
     def _mymemory(self, text: str, source_lang: str, target_lang: str) -> Optional[str]:
+        try:
+            # Lazy import
+            import httpx  # type: ignore
+        except Exception:
+            return None
         try:
             mm = self.cfg.get("mymemory") or {}
             url = mm.get("endpoint")
