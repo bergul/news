@@ -4,7 +4,10 @@ from pydantic import BaseModel
 from typing import Optional
 
 class Settings(BaseModel):
-    DATABASE_URL: str = os.getenv("DATABASE_URL", "sqlite:///./news.db")
+    DATABASE_URL: str = os.getenv(
+        "DATABASE_URL",
+        "postgresql+psycopg2://news_user:news_pass@localhost:5432/newsdb",
+    )
     SCHEDULE_CRON: str = os.getenv("SCHEDULE_CRON", "*/15 * * * *")  # every 15 minutes
     TZ: str = os.getenv("TZ", "Europe/Istanbul")
     LOG_LEVEL: str = os.getenv("LOG_LEVEL", "INFO")
