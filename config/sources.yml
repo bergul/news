@@ -1,0 +1,124 @@
+# Ekonomi / Emtia haber kaynakları
+# Notlar:
+# - "accept_terms" metinleri özete yöneliktir; tam kullanım koşullarını her yayıncının sitesinden kontrol edin.
+# - English kaynaklar için "translate_to_tr: true" işaretlidir (LibreTranslate/MyMemory kullanımı için).
+# - "category" alanı örnek amaçlıdır; projenizde istediğiniz etiketleri kullanabilirsiniz.
+
+sources:
+  - name: "BBC News - Business"
+    language: "en"
+    category: ["economy","business"]
+    rss_url: "http://feeds.bbci.co.uk/news/business/rss.xml"
+    homepage: "https://www.bbc.com/business"
+    accept_terms: "Kişisel kullanım için RSS; BBC Feed Terms geçerlidir"
+    translate_to_tr: true
+
+  - name: "The Guardian - Business (Economics)"
+    language: "en"
+    category: ["economy","business"]
+    rss_url: "https://www.theguardian.com/business/economics/rss"
+    homepage: "https://www.theguardian.com/business/economics"
+    accept_terms: "Kişisel, ticari olmayan kullanım; Guardian RSS kullanım koşulları"
+    translate_to_tr: true
+
+  - name: "MarketWatch - Economy & Politics"
+    language: "en"
+    category: ["economy","markets","policy"]
+    rss_url: "https://feeds.a.dj.com/rss/RSSMarketsMain.xml"
+    homepage: "https://www.marketwatch.com/economy-politics"
+    accept_terms: "Kişisel, ticari olmayan kullanım (MarketWatch RSS politikası)"
+    translate_to_tr: true
+
+  - name: "Investing.com - News (Commodities & Macro)"
+    language: "en"
+    category: ["economy","commodities","markets"]
+    rss_url: "https://www.investing.com/rss/news.rss"
+    homepage: "https://www.investing.com/news/commodities-news"
+    accept_terms: "RSS / Widget koşulları Investing.com tarafından belirtilir"
+    translate_to_tr: true
+
+  - name: "Kitco News - Mining"
+    language: "en"
+    category: ["commodities","metals","mining"]
+    rss_url: "https://www.kitco.com/news/category/mining/rss"
+    homepage: "https://www.kitco.com/news/"
+    accept_terms: "RSS mevcut; Kitco kullanım koşullarına uyun"
+    translate_to_tr: true
+
+  - name: "Al Jazeera - Economy"
+    language: "en"
+    category: ["economy","policy","global"]
+    rss_url: "https://www.aljazeera.com/xml/rss/all.xml"   # site RSS; ekonomi sekmesi filtrelenebilir
+    homepage: "https://www.aljazeera.com/economy/"
+    accept_terms: "AJ RSS'i mevcuttur; site koşulları geçerlidir"
+    translate_to_tr: true
+
+  - name: "TRT Haber - Ekonomi"
+    language: "tr"
+    category: ["economy","turkey"]
+    rss_url: "https://www.trthaber.com/ekonomi_articles.rss"
+    homepage: "https://www.trthaber.com/haber/ekonomi/"
+    accept_terms: "TRT RSS bağlantıları herkese açıktır"
+    translate_to_tr: false
+
+  - name: "NTV - Ekonomi"
+    language: "tr"
+    category: ["economy","turkey"]
+    rss_url: "https://www.ntv.com.tr/rss/ekonomi"
+    homepage: "https://www.ntv.com.tr/ekonomi"
+    accept_terms: "NTV RSS sayfasında koşullar belirtilmiştir"
+    translate_to_tr: false
+
+  - name: "Sözcü - Ekonomi"
+    language: "tr"
+    category: ["economy"]
+    rss_url: "https://www.sozcu.com.tr/feeds-rss-category-ekonomi"
+    homepage: "https://www.sozcu.com.tr/ekonomi"
+    accept_terms: "Sözcü RSS servisleri sayfasındaki koşullar geçerlidir"
+    translate_to_tr: false
+
+  - name: "Sözcü - Emtia"
+    language: "tr"
+    category: ["commodities"]
+    rss_url: "https://www.sozcu.com.tr/feeds-rss-category-emtia"
+    homepage: "https://www.sozcu.com.tr/ekonomi/"
+    accept_terms: "Sözcü RSS servisleri sayfasındaki koşullar geçerlidir"
+    translate_to_tr: false
+
+  - name: "Anadolu Ajansı - Ekonomi (Teyit Hattı)"
+    language: "tr"
+    category: ["economy","turkey"]
+    rss_url: "https://www.aa.com.tr/tr/teyithatti/rss/news?cat=ekonomi"
+    homepage: "https://www.aa.com.tr/tr/ekonomi"
+    accept_terms: "AA RSS bağlantıları sayfasında listelenmiştir"
+    translate_to_tr: false
+
+  - name: "DW Türkçe - Tüm Haberler (ekonomi dahildir)"
+    language: "tr"
+    category: ["economy","world"]
+    rss_url: "https://rss.dw.com/rdf/rss-tur-all"
+    homepage: "https://www.dw.com/tr"
+    accept_terms: "DW RSS genel akış; site koşullarına uyun"
+    translate_to_tr: false
+
+  - name: "BBC Türkçe - Genel Akış (ekonomi dahil)"
+    language: "tr"
+    category: ["economy","world"]
+    rss_url: "http://feeds.bbci.co.uk/turkce/rss.xml"
+    homepage: "https://www.bbc.com/turkce"
+    accept_terms: "BBC RSS; Feed Terms of Use"
+    translate_to_tr: false
+
+translation:
+  provider_primary: "libretranslate"   # self-host veya libretranslate.com (limitlidir)
+  provider_fallback: "mymemory"
+  libretranslate:
+    # Öneri: self-host edin (Docker). Ör: http://localhost:5000
+    endpoint: "http://localhost:5000/translate"
+    source_lang: "en"
+    target_lang: "tr"
+  mymemory:
+    endpoint: "https://api.mymemory.translated.net/get"
+    source_lang: "en"
+    target_lang: "tr"
+    # Not: Ücretsiz kullanım kota ve hız sınırlıdır; sonuçlar değişken kalite gösterebilir.
