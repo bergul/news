@@ -31,7 +31,8 @@ class RSSSource(Source):
             return []
         feed = feedparser.parse(self.url)
         items: List[Item] = []
-        for e in getattr(feed, "entries", []) or []:
+        # Only process the first entry (most recent item)
+        for e in (getattr(feed, "entries", []) or [])[:1]:
             # published_parsed may be missing -> fallback to now()
             if hasattr(e, "published_parsed") and e.published_parsed:
                 dt = datetime(*e.published_parsed[:6], tzinfo=timezone.utc)
