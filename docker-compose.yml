@@ -13,7 +13,7 @@ services:
   ingestor:
     build: .
     environment:
-      DATABASE_URL: postgresql+psycopg2://news_user:news_pass@db:5432/newsdb
+      DATABASE_URL: postgresql+asyncpg://news_user:news_pass@db:5432/newsdb
       SCHEDULE_CRON: "*/15 * * * *"
       TZ: Europe/Istanbul
       LOG_LEVEL: INFO
@@ -23,7 +23,7 @@ services:
   api:
     build: .
     environment:
-      DATABASE_URL: postgresql+psycopg2://news_user:news_pass@db:5432/newsdb
+      DATABASE_URL: postgresql+asyncpg://news_user:news_pass@db:5432/newsdb
       TZ: Europe/Istanbul
       LOG_LEVEL: INFO
     depends_on:

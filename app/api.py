@@ -59,6 +59,14 @@ def api_key_auth(x_api_key: str = Header(default=None, alias="x-api-key")):
 
 @app.on_event("startup")
 async def startup():
+    # Log effective DB URL driver (mask password)
+    try:
+        import re
+        masked = re.sub(r"(postgresql\+[^:]+://[^:]+):[^@]*@", r"\1:***@", settings.DATABASE_URL)
+        app.logger = app.logger if hasattr(app, 'logger') else None
+        log.info(f"DB URL -> {masked}")
+    except Exception:
+        pass
     await ensure_schema(engine)
 
 @app.get("/health")
