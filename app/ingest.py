@@ -1,26 +1,27 @@
 from __future__ import annotations
 from typing import List
 from sqlalchemy import select
-from sqlalchemy.orm import Session
+from sqlalchemy.ext.asyncio import AsyncSession
 from datetime import datetime, timezone
 from .models import News
 from .utils import tag_by_keywords, join_tags
 from .logging_util import get_logger
 from .webhook import notify_news
+import asyncio
 
 log = get_logger("ingest")
 
-def ensure_schema(engine):
+async def ensure_schema(engine):
     from .db import Base
-    Base.metadata.create_all(bind=engine)
+    async with engine.begin() as conn:
+        await conn.run_sync(Base.metadata.create_all)
 
-def save_items(session: Session, items) -> int:
+async def save_items(session: AsyncSession, items) -> int:
     inserted = 0
     inserted_payloads = []
     for it in items:
-        existing = session.execute(
-            select(News).where(News.url == it.url)
-        ).scalar_one_or_none()
+        result = await session.execute(select(News).where(News.url == it.url))
+        existing = result.scalar_one_or_none()
 
         tags = join_tags(tag_by_keywords(it.title + " " + it.summary, it.language))
 
@@ -71,7 +72,7 @@ def save_items(session: Session, items) -> int:
         except Exception:
             pass
 
-    session.commit()
+    await session.commit()
     # Send webhooks outside the transaction
     try:
         if inserted_payloads:
