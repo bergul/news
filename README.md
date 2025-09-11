@@ -58,6 +58,12 @@ TZ=Europe/Istanbul
 > Not: RSS/Atom beslemeleri telif ve robots.txt kurallarına uygun olduğu için önerilir.
 > JSON API kullanan kaynaklar için `type: json` ile özelleştirme ekleyebilirsiniz.
 
+## Altın ve Gümüş Haber Kaynakları
+Altın ve gümüş piyasalarına odaklanan haberleri öne çıkarmak için örnek RSS kaynakları:
+
+- **Google News - Gold** – [Web](https://news.google.com/search?q=gold) / [RSS](https://news.google.com/rss/search?q=gold&hl=en-US&gl=US&ceid=US:en)
+- **Google News - Silver** – [Web](https://news.google.com/search?q=silver) / [RSS](https://news.google.com/rss/search?q=silver&hl=en-US&gl=US&ceid=US:en)
+
 ## Tablo Şeması (news)
 - id (PK)
 - source_name
