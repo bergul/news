@@ -63,6 +63,8 @@ Altın ve gümüş piyasalarına odaklanan haberleri öne çıkarmak için örne
 
 - **Google News - Gold** – [Web](https://news.google.com/search?q=gold) / [RSS](https://news.google.com/rss/search?q=gold&hl=en-US&gl=US&ceid=US:en)
 - **Google News - Silver** – [Web](https://news.google.com/search?q=silver) / [RSS](https://news.google.com/rss/search?q=silver&hl=en-US&gl=US&ceid=US:en)
+- **Google News - Gold Technical Analysis** – [Web](https://news.google.com/search?q=gold+technical+analysis) / [RSS](https://news.google.com/rss/search?q=gold%20technical%20analysis&hl=en-US&gl=US&ceid=US:en)
+- **Google News - Silver Technical Analysis** – [Web](https://news.google.com/search?q=silver+technical+analysis) / [RSS](https://news.google.com/rss/search?q=silver%20technical%20analysis&hl=en-US&gl=US&ceid=US:en)
 
 ## Tablo Şeması (news)
 - id (PK)

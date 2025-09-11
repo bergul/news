@@ -22,6 +22,22 @@ sources:
     accept_terms: "Google News RSS kullanım şartları geçerlidir"
     translate_to_tr: true
 
+  - name: "Google News - Gold Technical Analysis"
+    language: "en"
+    category: ["commodities","gold","technical_analysis"]
+    rss_url: "https://news.google.com/rss/search?q=gold%20technical%20analysis&hl=en-US&gl=US&ceid=US:en"
+    homepage: "https://news.google.com/search?q=gold+technical+analysis"
+    accept_terms: "Google News RSS kullanım şartları geçerlidir"
+    translate_to_tr: true
+
+  - name: "Google News - Silver Technical Analysis"
+    language: "en"
+    category: ["commodities","silver","technical_analysis"]
+    rss_url: "https://news.google.com/rss/search?q=silver%20technical%20analysis&hl=en-US&gl=US&ceid=US:en"
+    homepage: "https://news.google.com/search?q=silver+technical+analysis"
+    accept_terms: "Google News RSS kullanım şartları geçerlidir"
+    translate_to_tr: true
+
   - name: "BBC News - Business"
     language: "en"
     category: ["economy","business"]
