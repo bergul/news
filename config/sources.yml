@@ -5,6 +5,23 @@
 # - "category" alanı örnek amaçlıdır; projenizde istediğiniz etiketleri kullanabilirsiniz.
 
 sources:
+  # Altın ve Gümüş için öne çıkarılan kaynaklar
+  - name: "Google News - Gold"
+    language: "en"
+    category: ["commodities","gold"]
+    rss_url: "https://news.google.com/rss/search?q=gold&hl=en-US&gl=US&ceid=US:en"
+    homepage: "https://news.google.com/search?q=gold"
+    accept_terms: "Google News RSS kullanım şartları geçerlidir"
+    translate_to_tr: true
+
+  - name: "Google News - Silver"
+    language: "en"
+    category: ["commodities","silver"]
+    rss_url: "https://news.google.com/rss/search?q=silver&hl=en-US&gl=US&ceid=US:en"
+    homepage: "https://news.google.com/search?q=silver"
+    accept_terms: "Google News RSS kullanım şartları geçerlidir"
+    translate_to_tr: true
+
   - name: "BBC News - Business"
     language: "en"
     category: ["economy","business"]
