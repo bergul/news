@@ -11,8 +11,13 @@ import asyncio
 
 log = get_logger("main")
 
+_schema_done = False
+
 async def run_once():
-    await ensure_schema(engine)
+    global _schema_done
+    if not _schema_done:
+        await ensure_schema(engine)
+        _schema_done = True
     sources = load_sources("config/sources.yml")
     total = 0
     async with SessionLocal() as s:

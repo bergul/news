@@ -1,20 +1,30 @@
 from __future__ import annotations
 from typing import List
 from sqlalchemy import select
-from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
+from sqlalchemy.pool import NullPool
 from datetime import datetime, timezone
 from .models import News
 from .utils import tag_by_keywords, join_tags
 from .logging_util import get_logger
 from .webhook import notify_news
+from .config import settings
 import asyncio
 
 log = get_logger("ingest")
 
+_schema_lock = asyncio.Lock()
+
 async def ensure_schema(engine):
     from .db import Base
-    async with engine.begin() as conn:
-        await conn.run_sync(Base.metadata.create_all)
+    async with _schema_lock:
+        # Use a dedicated engine/connection to avoid concurrent ops on pooled connections
+        tmp_engine = create_async_engine(settings.DATABASE_URL, echo=False, future=True, poolclass=NullPool)
+        try:
+            async with tmp_engine.begin() as conn:
+                await conn.run_sync(Base.metadata.create_all)
+        finally:
+            await tmp_engine.dispose()
 
 async def save_items(session: AsyncSession, items) -> int:
     inserted = 0
