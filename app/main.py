@@ -38,9 +38,12 @@ async def main():
     if args.once:
         await run_once()
     else:
-        def job():
-            asyncio.run(run_once())
+        async def job():
+            await run_once()
         start_scheduler(job)
+        # keep the loop alive
+        while True:
+            await asyncio.sleep(3600)
 
 if __name__ == "__main__":
     asyncio.run(main())
