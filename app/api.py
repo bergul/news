@@ -117,9 +117,9 @@ async def list_news(
         from sqlalchemy import and_ as _and
         stmt = stmt.where(_and(*conds))
     if order.lower() == "desc":
-        stmt = stmt.order_by(News.published_at.desc(), News.id.desc())
+        stmt = stmt.order_by(News.id.desc())
     else:
-        stmt = stmt.order_by(News.published_at.asc(), News.id.asc())
+        stmt = stmt.order_by(News.id.asc())
     stmt = stmt.limit(limit).offset(offset)
     result = await session.execute(stmt)
     rows = result.scalars().all()
